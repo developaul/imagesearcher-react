@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Error from './Error';
 
-const Formulario = ({ setBuqueda, setLoading }) => {
+const Formulario = ({ setBuqueda, setLoading, setThereImages }) => {
 
     const [ termino, setTermino ]   = useState( '' );
     const [ error, setError ]       = useState( false );
@@ -18,6 +18,9 @@ const Formulario = ({ setBuqueda, setLoading }) => {
         }
         
         setError( false );
+
+        // Cambia de estado cuando hay imagenes que mostrar
+        setThereImages( true );
 
         // Enviar el termino de busqueda
         setLoading( true );
@@ -55,7 +58,9 @@ const Formulario = ({ setBuqueda, setLoading }) => {
 };
 
 Formulario.propTypes = {
-    setBuqueda: PropTypes.func.isRequired
+    setBuqueda: PropTypes.func.isRequired,
+    setLoading: PropTypes.func.isRequired,
+    setThereImages: PropTypes.func.isRequired
 };
 
 export default Formulario;

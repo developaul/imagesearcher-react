@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 
-import Formulario from './components/Formulario';
 import useFetch from './hooks/useFetch';
+
+import Formulario from './components/Formulario';
+import ListadoImagenes from './components/ListadoImagenes';
 
 function App() {
 
-	const [ busqueda, setBuqueda ] = useState( '' ); 
+	const [ busqueda, setBuqueda ] 			= useState( '' );
+	const [ thereImages, setThereImages ] 	= useState( false ); 
+
 	const results = useFetch( busqueda, 30 );
 
 	return (
@@ -16,7 +20,16 @@ function App() {
 				<Formulario 
 					setBuqueda={ setBuqueda }
 					setLoading={ results.setLoading } 
+					setThereImages={ setThereImages }
 				/>
+			</div>
+
+			<div className="row justify-content-center">
+				{ thereImages ?
+						<ListadoImagenes results={ results } />
+					:
+						<p style={{ marginTop: 150 }}>Realiza una búsqueda...</p>
+				}
 			</div>
 		</div>
 	);

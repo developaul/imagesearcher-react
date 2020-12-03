@@ -13,6 +13,8 @@ const useFetch = ( busqueda, imagenesPorPaginas ) => {
 
 		( async () => {
             
+            if( !busqueda ) return { loading, result, error, setLoading };
+
             try {
 
                 const resp = await fetch( `${ URL }&q=${ encodeURI( busqueda ) }&per_page=${ imagenesPorPaginas }` );
@@ -32,7 +34,8 @@ const useFetch = ( busqueda, imagenesPorPaginas ) => {
 
 		})();
 
-	}, [ busqueda, imagenesPorPaginas ] );
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [ busqueda ] );
 
     return { loading, result, error, setLoading };
 };
