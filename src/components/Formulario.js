@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 import Error from './Error';
 
-const Formulario = () => {
+const Formulario = ({ setBuqueda, setLoading }) => {
 
     const [ termino, setTermino ]   = useState( '' );
     const [ error, setError ]       = useState( false );
@@ -19,8 +20,10 @@ const Formulario = () => {
         setError( false );
 
         // Enviar el termino de busqueda
-        console.log( termino );
-    }
+        setLoading( true );
+        setBuqueda( termino );
+        setTermino( '' );
+    };
 
     return (
         <form
@@ -32,6 +35,7 @@ const Formulario = () => {
                         className="form-control form-control-lg"
                         type="text"
                         placeholder="Ejemplo: Café"
+                        value={ termino }
                         onChange={ e => setTermino( e.target.value.trim() ) }
                     />
                 </div>
@@ -48,6 +52,10 @@ const Formulario = () => {
             { error && <Error message='Agrega un término de búsqueda' /> }
         </form>
     );
+};
+
+Formulario.propTypes = {
+    setBuqueda: PropTypes.func.isRequired
 };
 
 export default Formulario;
