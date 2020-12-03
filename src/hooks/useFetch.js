@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import { URL } from '../utils/constans';
 
-const useFetch = ( busqueda, imagenesPorPaginas ) => {
+const useFetch = ( busqueda, imagenesPorPaginas, pagina ) => {
 
     const [ loading, setLoading ] = useState( true );
     const [ result, setResult ] = useState( null );
@@ -17,7 +17,7 @@ const useFetch = ( busqueda, imagenesPorPaginas ) => {
 
             try {
 
-                const resp = await fetch( `${ URL }&q=${ encodeURI( busqueda ) }&per_page=${ imagenesPorPaginas }` );
+                const resp = await fetch( `${ URL }&q=${ encodeURI( busqueda ) }&per_page=${ imagenesPorPaginas }&page=${ pagina }` );
                 const json = await resp.json();
 
                 setResult( json );
@@ -35,7 +35,7 @@ const useFetch = ( busqueda, imagenesPorPaginas ) => {
 		})();
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [ busqueda ] );
+	}, [ busqueda, pagina ] );
 
     return { loading, result, error, setLoading };
 };

@@ -4,13 +4,14 @@ import PropTypes from 'prop-types';
 import Imagen from './Imagen';
 import Spinner from './Spinner';
 
-const ListadoImagenes = ({ results }) => {
+const ListadoImagenes = ({ results, calcularTotalPaginas }) => {
 
     const { loading, result } = results;
 
     if( loading || !result ) return <Spinner />;
 
-    const { hits } = result;
+    const { totalHits, hits } = result;
+    calcularTotalPaginas( totalHits );
 
     return (
         <div className="col-12 p-5 row">
@@ -27,7 +28,8 @@ const ListadoImagenes = ({ results }) => {
 };
 
 ListadoImagenes.propTypes = {
-    results: PropTypes.object.isRequired
+    results: PropTypes.object.isRequired,
+    calcularTotalPaginas: PropTypes.func.isRequired
 };
 
 export default ListadoImagenes;
